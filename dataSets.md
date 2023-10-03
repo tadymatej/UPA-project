@@ -40,6 +40,11 @@ PM2_5_1h (každou hodinu/updated hourly)
 ### Odkaz na dataset: 
 https://data.gov.cz/datová-sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatové-sady%2F44992785%2F4907e5c199620d99a44c1ec388703cd5
 
+### Vhodná distribuce datové sady:
+CSV | JSON (Je to jedno, protože data jsou v obou formátech poměrně jednoduchá, bez zanořování struktur, záleží na potřebách dané aplikace)
+
+### Proč právě tento typ databáze?
+Tento dataset je výhodné ukládat v NoSQL databázi InfluxDB, jelikož se jedná o databázi časových řad. Již z popisu sloupců vidíme, že data se mění periodicky v poměrně krátkých intervalech. Současně víme, že datová sada obsahuje chronologickou posloupnost měření, což je typ dat, pro který InfluxDB byla navržena. Z datové sady jsme si všimli, že každé měření má svůj identifikátor (objectid) a každý měřič, který je identifikován atributem "code", generuje svoji časovou řadu měření. Pokud uvážíme typické operace nad těmito daty, dospějeme také k tomuto typu databáze. Například, pokud by nás zajímala maximální, průměrná a minimální naměřená hodnota so2 v určitém časovém intervalu, tento typ databáze velmi zjednoduší výsledný dotaz oproti ostatním typům databáze. Pokud bychom toto chtěli provádět u jakéhokoliv jiného typu databáze, museli bychom dotazy pro daný typ databáze psát ručně, kdežto u databáze časových řad máme k dispozici funkce jako "GROUP BY time(12m)"
 
 ## 2) Grafová Databáze (Neo4J)
 
@@ -67,6 +72,10 @@ Pentlogramy intenzity dopravy zpracovávají pravidelně Brněnské komunikace, 
 ### Odkaz na dataset: 
 https://data.gov.cz/datová-sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatové-sady%2F44992785%2F5e8c39d2f310479778e7bdd4c6f00ddf
 
+### Vhodná distribuce datové sady:
+CSV | GeoJSON (Je to jedno, protože data jsou v obou formátech poměrně jednoduchá, bez zanořování struktur, záleží na potřebách dané aplikace)
+
+### Proč právě tento typ databáze?
 
 ## 3) Dokumentová Databáze (MongoDB)
 
@@ -81,6 +90,11 @@ Viz json schema v souboru: schema-documentDB.json
 
 ### Odkaz na dataset: 
 https://data.gov.cz/datová-sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatové-sady%2F44992785%2Fadbe37958992dd6ded7545352803e305 
+
+### Vhodná distribuce datové sady:
+JSON (Nutně JSON, protože v CSV to nelze stáhnout a navíc v CSV by se ani nedaly nijak efektivně zobrazit vztahy mezi objekty v dokumentu (Například kdo hlasoval pro koho do zastupitelstva), mohlo by docházet ke ztrátám informací z důvodu nedostatku metadat pro popis dat)
+
+### Proč právě tento typ databáze?
 
 ## 4) Sloupcová databáze (Cassandra)
 
@@ -110,3 +124,8 @@ Bodová vrstva firem se sídlem v Brně, které mají 5 a více zaměstnanců. J
 
 ### Odkaz na dataset: 
 https://data.gov.cz/datová-sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatové-sady%2F44992785%2Fc91e300896498a57836201501e0a1d90 
+
+### Vhodná distribuce datové sady:
+CSV (Jelikož tato data se hodí pro sloupcovou NoSQL databázi, i formát souboru, ve kterém se tato data přenáší se hodí přenášet v CSV, neboť CSV si lze představit jako tabulku obsahující M řádků a N sloupců, v tomto případě N = počet atributů a M je počet záznamů)
+
+### Proč právě tento typ databáze?
