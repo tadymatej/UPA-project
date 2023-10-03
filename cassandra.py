@@ -22,11 +22,21 @@ def extract_properties(data):
 # Extract properties from the JSON
 properties_data = extract_properties(json_data)
 
-# Connect to the Cassandra cluster
-cluster = Cluster(['localhost'])  # Replace with your Cassandra cluster address
+from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
 
-# Create a session and keyspace
+cloud_config = {
+    'secure_connect_bundle': '/path/to/secure-connect-dbname.zip'
+}
+auth_provider = PlainTextAuthProvider(username='user', password='pass')
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
+
+# Connect to the Cassandra cluster
+# cluster = Cluster(['localhost'])  # Replace with your Cassandra cluster address
+
+# # Create a session and keyspace
+# session = cluster.connect()
 session.execute(
     "CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
 session.execute("USE my_keyspace")
