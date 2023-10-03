@@ -1,4 +1,5 @@
 from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
 
 # Your JSON data
 json_data = {
@@ -22,11 +23,10 @@ def extract_properties(data):
 # Extract properties from the JSON
 properties_data = extract_properties(json_data)
 
-from cassandra.cluster import Cluster
-from cassandra.auth import PlainTextAuthProvider
+
 
 cloud_config = {
-    'secure_connect_bundle': '/path/to/secure-connect-dbname.zip'
+    'secure_connect_bundle': 'secure-connect-upa.zip'
 }
 auth_provider = PlainTextAuthProvider(username='user', password='pass')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
