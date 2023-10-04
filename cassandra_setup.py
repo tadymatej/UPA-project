@@ -1,6 +1,6 @@
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
-
+import json
 # Your JSON data
 json_data = {
     "type": "FeatureCollection",
@@ -8,6 +8,14 @@ json_data = {
     # ... (the rest of your JSON)
 }
 
+with open('Firmy_v_Brno.geojson', 'r') as file:
+    json_data = json.load(file)
+
+ASTRA_DB_APPLICATION_TOKEN = ""
+ASTRA_TOKEN_PATH = 'UPA-token.json'
+with open(ASTRA_TOKEN_PATH, "r") as f:
+    creds = json.load(f)
+    ASTRA_DB_APPLICATION_TOKEN = creds["token"]
 # Function to extract properties from the JSON
 
 
@@ -28,7 +36,7 @@ properties_data = extract_properties(json_data)
 cloud_config = {
     'secure_connect_bundle': 'secure-connect-upa.zip'
 }
-auth_provider = PlainTextAuthProvider(username='user', password='pass')
+auth_provider = PlainTextAuthProvider('token', password=ASTRA_DB_APPLICATION_TOKEN)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 
@@ -37,9 +45,9 @@ session = cluster.connect()
 
 # # Create a session and keyspace
 # session = cluster.connect()
-session.execute(
-    "CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
-session.execute("USE my_keyspace")
+# session.execute(
+#     "CREATE KEYSPACE IF NOT EXISTS bamboo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
+session.execute("USE bamboo")
 
 # Create a table to store the properties
 session.execute("""
@@ -57,12 +65,31 @@ session.execute("""
         city TEXT,
         latitude DOUBLE,
         longitude DOUBLE,
-        globalid UUID
+        globalid TEXT
     )
 """)
 
 # Insert the extracted properties into the Cassandra table
+# print(properties_data)
 for properties in properties_data:
+    # print(properties)
+    # print((
+    #     properties.get("objectid"),
+    #     properties.get("name"),
+    #     properties.get("adresa"),
+    #     properties.get("foundation_year"),
+    #     properties.get("employees"),
+    #     properties.get("turnover_in_czk"),
+    #     properties.get("website"),
+    #     properties.get("odvetvi"),
+    #     properties.get("industry"),
+    #     properties.get("address"),
+    #     properties.get("city"),
+    #     properties.get("latitude"),
+    #     properties.get("longitude"),
+    #     properties.get("globalid"),
+    # ))
+    # break
     insert_query = """
         INSERT INTO properties (
             objectid, name, adresa, foundation_year, employees, turnover_in_czk,
@@ -70,7 +97,8 @@ for properties in properties_data:
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
-    session.execute(insert_query, (
+    session.execute(session.prepare(insert_query), [
+        
         properties.get("objectid"),
         properties.get("name"),
         properties.get("adresa"),
@@ -85,7 +113,7 @@ for properties in properties_data:
         properties.get("latitude"),
         properties.get("longitude"),
         properties.get("globalid"),
-    ))
+    ])
 
 # Close the Cassandra session and cluster connection
 session.shutdown()
