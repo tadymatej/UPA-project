@@ -536,6 +536,400 @@
           ]
         }
       ]
+    },
+    {
+      "code": "Z9/09",
+      "number": 127,
+      "datetime": "2023-09-05T11:24:03+00:00",
+      "subject": "162. Návrh Prohlášení k rozdělení práva k nemovité věci na vlastnické právo k jednotkám k pozemku p. č. 40, jehož součástí je budova č. p. 643, stavba občanského vybavení, to vše v k. ú. Město Brno - stažení bodu",
+      "result": "Nepřijato",
+      "details": {
+        "present": 52,
+        "yes": 11,
+        "no": 0,
+        "abstained": 28,
+        "did_not_vote": 13
+      },
+      "parties": [
+        {
+          "name": "ANO 2011",
+          "details": { "yes": 3, "no": 0, "abstained": 6 },
+          "votes": [
+            {
+              "voter": "Petr Bauer",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Petr Bořecký",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "René Černý", "text": "nepřít.", "option": null },
+            {
+              "voter": "Alena Gruberová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Kateřina Jarošová", "text": "Ano", "option": "Ano" },
+            { "voter": "Karel Kalivoda", "text": "Ano", "option": "Ano" },
+            {
+              "voter": "Karin Podivinská",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            {
+              "voter": "Pavel Kříž",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Miroslav Kubásek",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            { "voter": "René Novotný", "text": "nepřít.", "option": null },
+            {
+              "voter": "Pavel Outrata",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Vít Prýgl", "text": "Ano", "option": "Ano" },
+            {
+              "voter": "Daniel Struž",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "SOCDEM",
+          "details": { "yes": 0, "no": 0, "abstained": 2 },
+          "votes": [
+            { "voter": "Jiří Oliva", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Břetislav Štefan",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Marek Viskot",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "Lidovci a Starostové",
+          "details": { "yes": 1, "no": 0, "abstained": 7 },
+          "votes": [
+            {
+              "voter": "Petr Hladík",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Jakub Hruška",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Filip Chvátal", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Jitka Ivičičová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Filip Leder",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Martin Maleček",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Michal Marek", "text": "Ano", "option": "Ano" },
+            {
+              "voter": "Irena Matonohová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Jaroslav Suchý", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Radomír Vondra",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "ODS a TOP 09",
+          "details": { "yes": 1, "no": 0, "abstained": 8 },
+          "votes": [
+            {
+              "voter": "Tomáš Aberl",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Kristýna Černá",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "David Grund", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Jiří Herman",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Michal Chládek", "text": "Nehlasoval", "option": null },
+            { "voter": "Robert Kerndl", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Vladan Krásný",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Petr Kratochvíl",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            {
+              "voter": "Andrea Pazderová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Martin Příborský",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Anna Putnová", "text": "Ano", "option": "Ano" },
+            {
+              "voter": "Dagmar Seidlová",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            { "voter": "David Trllo", "text": "Nehlasoval", "option": null },
+            { "voter": "Pavel Urubek", "text": "Nehlasoval", "option": null },
+            {
+              "voter": "Markéta Vaňková",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Libor Zábranský",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "Piráti",
+          "details": { "yes": 0, "no": 0, "abstained": 3 },
+          "votes": [
+            {
+              "voter": "Tomáš Koláčný",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Marek Lahoda",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Monika Lukášová Spilková",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            {
+              "voter": "Adam Zemek",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "SPD+Trikolora",
+          "details": { "yes": 6, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Tomáš Anderle", "text": "Ano", "option": "Ano" },
+            { "voter": "Blanka Borovská", "text": "Ano", "option": "Ano" },
+            { "voter": "Jiří Kment", "text": "Ano", "option": "Ano" },
+            { "voter": "Petr Levíček", "text": "Ano", "option": "Ano" },
+            { "voter": "Leoš Prokeš", "text": "Ano", "option": "Ano" },
+            { "voter": "Tomáš Skřička", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "Zelení a Žít Brno",
+          "details": { "yes": 0, "no": 0, "abstained": 2 },
+          "votes": [
+            {
+              "voter": "Jana Drápalová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Jasna Flamiková", "text": "nepřít.", "option": null },
+            {
+              "voter": "Matěj Hollan",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "Z9/09",
+      "number": 128,
+      "datetime": "2023-09-05T11:24:37+00:00",
+      "subject": "162. Návrh Prohlášení k rozdělení práva k nemovité věci na vlastnické právo k jednotkám k pozemku p. č. 40, jehož součástí je budova č. p. 643, stavba občanského vybavení, to vše v k. ú. Město Brno",
+      "result": "Přijato",
+      "details": {
+        "present": 52,
+        "yes": 43,
+        "no": 0,
+        "abstained": 8,
+        "did_not_vote": 1
+      },
+      "parties": [
+        {
+          "name": "ANO 2011",
+          "details": { "yes": 11, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Petr Bauer", "text": "Ano", "option": "Ano" },
+            { "voter": "Petr Bořecký", "text": "Ano", "option": "Ano" },
+            { "voter": "René Černý", "text": "nepřít.", "option": null },
+            { "voter": "Alena Gruberová", "text": "Ano", "option": "Ano" },
+            { "voter": "Kateřina Jarošová", "text": "Ano", "option": "Ano" },
+            { "voter": "Karel Kalivoda", "text": "Ano", "option": "Ano" },
+            { "voter": "Karin Podivinská", "text": "Ano", "option": "Ano" },
+            { "voter": "Pavel Kříž", "text": "Ano", "option": "Ano" },
+            { "voter": "Miroslav Kubásek", "text": "Ano", "option": "Ano" },
+            { "voter": "René Novotný", "text": "nepřít.", "option": null },
+            { "voter": "Pavel Outrata", "text": "Ano", "option": "Ano" },
+            { "voter": "Vít Prýgl", "text": "Ano", "option": "Ano" },
+            { "voter": "Daniel Struž", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "SOCDEM",
+          "details": { "yes": 3, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Jiří Oliva", "text": "Ano", "option": "Ano" },
+            { "voter": "Břetislav Štefan", "text": "Ano", "option": "Ano" },
+            { "voter": "Marek Viskot", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "Lidovci a Starostové",
+          "details": { "yes": 10, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Petr Hladík", "text": "Ano", "option": "Ano" },
+            { "voter": "Jakub Hruška", "text": "Ano", "option": "Ano" },
+            { "voter": "Filip Chvátal", "text": "Ano", "option": "Ano" },
+            { "voter": "Jitka Ivičičová", "text": "Ano", "option": "Ano" },
+            { "voter": "Filip Leder", "text": "Ano", "option": "Ano" },
+            { "voter": "Martin Maleček", "text": "Ano", "option": "Ano" },
+            { "voter": "Michal Marek", "text": "Ano", "option": "Ano" },
+            { "voter": "Irena Matonohová", "text": "Ano", "option": "Ano" },
+            { "voter": "Jaroslav Suchý", "text": "Ano", "option": "Ano" },
+            { "voter": "Radomír Vondra", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "ODS a TOP 09",
+          "details": { "yes": 16, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Tomáš Aberl", "text": "Ano", "option": "Ano" },
+            { "voter": "Kristýna Černá", "text": "Ano", "option": "Ano" },
+            { "voter": "David Grund", "text": "Ano", "option": "Ano" },
+            { "voter": "Jiří Herman", "text": "Ano", "option": "Ano" },
+            { "voter": "Michal Chládek", "text": "Ano", "option": "Ano" },
+            { "voter": "Robert Kerndl", "text": "Ano", "option": "Ano" },
+            { "voter": "Vladan Krásný", "text": "Ano", "option": "Ano" },
+            { "voter": "Petr Kratochvíl", "text": "Ano", "option": "Ano" },
+            { "voter": "Andrea Pazderová", "text": "Ano", "option": "Ano" },
+            { "voter": "Martin Příborský", "text": "Ano", "option": "Ano" },
+            { "voter": "Anna Putnová", "text": "Ano", "option": "Ano" },
+            { "voter": "Dagmar Seidlová", "text": "Ano", "option": "Ano" },
+            { "voter": "David Trllo", "text": "Ano", "option": "Ano" },
+            { "voter": "Pavel Urubek", "text": "Ano", "option": "Ano" },
+            { "voter": "Markéta Vaňková", "text": "Ano", "option": "Ano" },
+            { "voter": "Libor Zábranský", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "Piráti",
+          "details": { "yes": 3, "no": 0, "abstained": 0 },
+          "votes": [
+            { "voter": "Tomáš Koláčný", "text": "Ano", "option": "Ano" },
+            { "voter": "Marek Lahoda", "text": "Ano", "option": "Ano" },
+            {
+              "voter": "Monika Lukášová Spilková",
+              "text": "Nehlasoval",
+              "option": null
+            },
+            { "voter": "Adam Zemek", "text": "Ano", "option": "Ano" }
+          ]
+        },
+        {
+          "name": "SPD+Trikolora",
+          "details": { "yes": 0, "no": 0, "abstained": 6 },
+          "votes": [
+            {
+              "voter": "Tomáš Anderle",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Blanka Borovská",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Jiří Kment",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Petr Levíček",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Leoš Prokeš",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            {
+              "voter": "Tomáš Skřička",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        },
+        {
+          "name": "Zelení a Žít Brno",
+          "details": { "yes": 0, "no": 0, "abstained": 2 },
+          "votes": [
+            {
+              "voter": "Jana Drápalová",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            },
+            { "voter": "Jasna Flamiková", "text": "nepřít.", "option": null },
+            {
+              "voter": "Matěj Hollan",
+              "text": "Zdržel se",
+              "option": "Zdržel se"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 from pymongo import MongoClient
 from pymongo.mongo_client import MongoClient
@@ -26,6 +25,7 @@ result= collection.delete_many({})
 
 # Insert each document into the MongoDB collection
 for document in data["data"]:
+    
     timestamp = document["datetime"][:-6]
     document["datetime"] = timestamp
     
