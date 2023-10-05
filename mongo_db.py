@@ -13,7 +13,7 @@ database_name = "upa"  # Change to your desired database name
 collection_name = "records"
 
 # Load the JSON data
-with open("zastupitelstvo_debug.json", "r") as json_file:
+with open("zastupitelstvo.json", "r") as json_file:
     data = json.load(json_file)
 
 # Connect to MongoDB
@@ -21,7 +21,7 @@ db = client[database_name]
 collection = db[collection_name]
 
 # ALERT! For testing purpuses delete all data
-result= collection.delete_many({})
+#result= collection.delete_many({})
 
 # Insert each document into the MongoDB collection
 for document in data["data"]:
