@@ -16,21 +16,21 @@ collection = db[collection_name]
 
 ###############################################################################
 ## QUERIES - Aggregation
-# 1. Vyber prijate navrhy z hlasovani s kodem Z9/09
-print("1. Jake navrhy z hlasovani s kodem Z9/09 byly prijaty?")
+# 1. Jake navrhy ze schuze s kodem Z9/09 byly prijaty?
+print("1. Jake navrhy ze schuze s kodem Z9/09 byly prijaty?")
 code = "Z9/09"
 result = "Přijato"
 agg_result1 = collection.aggregate(
     [
         {"$match": {"code": code, "result": result}},
         {"$group": {"_id": "$subject"}}
-     ])
+    ])
 
 for ar1 in agg_result1:
     print("\t>>", ar1)
     
-# 2. Kolik navrhu z hlasovani s kodem Z9/09 bylo prijato?
-print("2. Kolik navrhu z hlasovani s kodem Z9/09 bylo prijato?")
+# 2. Kolik navrhu ze schuze s kodem Z9/09 bylo prijato?
+print("2. Kolik navrhu ze schuze s kodem Z9/09 bylo prijato?")
 code = "Z9/09"
 result = "Přijato"
 agg_result2 = collection.aggregate([
