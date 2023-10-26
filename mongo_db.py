@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timezone
+from datetime import datetime
 from pymongo import MongoClient
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -8,40 +8,53 @@ uri = "mongodb+srv://upa:upa@cluster0.cq5pjvs.mongodb.net/?retryWrites=true&w=ma
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 
-database_name = "upa"  # Change to your desired database name
-# Change to your desired collection name
-collection_name = "records"
+database_name = "upa"
 
 # Load the JSON data
 with open("zastupitelstvo.json", "r") as json_file:
-    data = json.load(json_file)
+    data_json = json.load(json_file)
 
 # Connect to MongoDB
 db = client[database_name]
-collection = db[collection_name]
+subjects = db["subjects"]
+parties = db["parties"]
 
 # ALERT! For testing purpuses delete all data
 #result= collection.delete_many({})
 
 # Insert each document into the MongoDB collection
-for document in data["data"]:
+pid = vid = 1
+for data in data_json["data"]:
     date_format = "%Y-%m-%dT%H:%M:%S%z"
-    parsed_datetime = datetime.strptime(document["datetime"], date_format)
-    document["datetime"] = parsed_datetime
+    parsed_datetime = datetime.strptime(data["datetime"], date_format)
+    data["datetime"] = parsed_datetime
     
-    # Checking if the document already exists in the database
-    duplicate_document = collection.find_one({'code': document["code"], 'subject': document["subject"]})
-    if duplicate_document:
-        time = duplicate_document["datetime"].replace(tzinfo=timezone.utc)
-        if time < parsed_datetime:
-            # New document contains updated data; old document is updated
-            collection.update_one({'code': document["code"], 'subject': document["subject"]}, {"$set": document}, upsert=False)
-    else:
-        # The document does not yet exist in the database; it is inserted into the database
-        collection.insert_one(document)
+    sid = f"{data['code']}_{data['number']}"
+    print(sid)
+    
+    subject = {
+        "_id": sid,
+        "code": data["code"],
+        "number": data["number"],
+        "datetime": parsed_datetime,
+        "subject": data["subject"],
+        "result": data["result"],
+        "details": data["details"]
+    }
+    
+    subjects.update_one({"code": data["code"], "number": data["number"]}, {"$set": subject}, upsert=True)
+    for p in data["parties"]:
+        party = {
+        "_id": pid,
+        "name": p["name"],
+        "details": p["details"],
+        "votes": p["votes"],
+        "sid": sid,
+        }
+        parties.update_one({"name": p["name"], "sid": sid}, {"$set": party}, upsert=True)
         
-    #collection.update_one({'code': document["code"], 'subject': document["subject"], 'datetime': {"$lt": parsed_datetime}}, {"$set": document},upsert=True)
-
+        pid+=1
+    
 # Close the MongoDB connection
 client.close()
 
