@@ -1,38 +1,17 @@
 import json
 
+import pandas as pd
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.cluster import Cluster
-
-# Your JSON data
-json_data = {
-    "type": "FeatureCollection",
-    "name": "firmy_firmy",
-    # ... (the rest of your JSON)
-}
-
-with open('Firmy_v_Brno.geojson', 'r') as file:
-    json_data = json.load(file)
 
 ASTRA_DB_APPLICATION_TOKEN = ""
 ASTRA_TOKEN_PATH = 'UPA-token4.json'
 with open(ASTRA_TOKEN_PATH, "r") as f:
     creds = json.load(f)
     ASTRA_DB_APPLICATION_TOKEN = creds["token"]
-# Function to extract properties from the JSON
 
-
-def extract_properties(data):
-    properties_list = []
-    features = data.get("features", [])
-    for feature in features:
-        properties = feature.get("properties", {})
-        properties_list.append(properties)
-    return properties_list
-
-
-# Extract properties from the JSON
-properties_data = extract_properties(json_data)
-
+data = pd.read_csv(
+    'Obsazenost_parkovacich_domu_a_parkovist___Car_parks_capacity_data_-_live.csv')
 
 cluster = Cluster(cloud={
     "secure_connect_bundle": "/Users/janzimola/Documents/VUT/UPA-project/secure-connect-upa.zip",
@@ -43,81 +22,47 @@ cluster = Cluster(cloud={
 ),)
 session = cluster.connect("bamboo")
 
-# Connect to the Cassandra cluster
-# cluster = Cluster(['localhost'])  # Replace with your Cassandra cluster address
-
-# # Create a session and keyspace
-# session = cluster.connect()
-# session.execute(
-#     "CREATE KEYSPACE IF NOT EXISTS bamboo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
 session.execute("USE bamboo")
 
 # Create a table to store the properties
 session.execute("""
-    CREATE TABLE IF NOT EXISTS firmy (
-        objectid INT PRIMARY KEY,
+    CREATE TABLE IF NOT EXISTS parking (
+        X DOUBLE,
+        Y DOUBLE,
+        ObjectId INT PRIMARY KEY,
         name TEXT,
-        adresa TEXT,
-        foundation_year INT,
-        employees TEXT,
-        turnover_in_czk TEXT,
-        website TEXT,
-        odvetvi TEXT,
-        industry TEXT,
-        address TEXT,
-        city TEXT,
-        latitude DOUBLE,
-        longitude DOUBLE,
-        globalid TEXT
+        capacity INT,
+        free INT,
+        Latitude DOUBLE,
+        Longitude DOUBLE,
+        spacesSubscribersVacant INT,
+        spacesSubscribersOccupied INT,
+        spacesAllUsersVacant INT,
+        spacesAllUsersOccupied INT,
+        cars INT,
+        capacity_procent DOUBLE,
+        startdate TEXT,
+        CapacityForPublic INT
     )
 """)
 
-# Insert the extracted properties into the Cassandra table
-# print(properties_data)
-for properties in properties_data:
-    # print(properties)
-    # print((
-    #     properties.get("objectid"),
-    #     properties.get("name"),
-    #     properties.get("adresa"),
-    #     properties.get("foundation_year"),
-    #     properties.get("employees"),
-    #     properties.get("turnover_in_czk"),
-    #     properties.get("website"),
-    #     properties.get("odvetvi"),
-    #     properties.get("industry"),
-    #     properties.get("address"),
-    #     properties.get("city"),
-    #     properties.get("latitude"),
-    #     properties.get("longitude"),
-    #     properties.get("globalid"),
-    # ))
-    # break
+# Insert the new data into the Cassandra table
+for index, item in data.iterrows():
+    # print(item["X"])
     insert_query = """
-        INSERT INTO firmy (
-            objectid, name, adresa, foundation_year, employees, turnover_in_czk,
-            website, odvetvi, industry, address, city, latitude, longitude, globalid
+        INSERT INTO parking (
+            X, Y, ObjectId, name, capacity, free, Latitude, Longitude,
+            spacesSubscribersVacant, spacesSubscribersOccupied, spacesAllUsersVacant,
+            spacesAllUsersOccupied, cars, capacity_procent, startdate, CapacityForPublic
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
     session.execute(session.prepare(insert_query), [
-
-        properties.get("objectid"),
-        properties.get("name"),
-        properties.get("adresa"),
-        properties.get("foundation_year"),
-        properties.get("employees"),
-        properties.get("turnover_in_czk"),
-        properties.get("website"),
-        properties.get("odvetvi"),
-        properties.get("industry"),
-        properties.get("address"),
-        properties.get("city"),
-        properties.get("latitude"),
-        properties.get("longitude"),
-        properties.get("globalid"),
+        item["X"], item["Y"], item["ObjectId"], item["name"], item["capacity"], item["free"],
+        item["Latitude"], item["Longitude"], item["spacesSubscribersVacant"], item["spacesSubscribersOccupied"],
+        item["spacesAllUsersVacant"], item["spacesAllUsersOccupied"], item["cars"], item["capacity_procent"],
+        item["startdate"], item["CapacityForPublic"]
     ])
-
 # Close the Cassandra session and cluster connection
 session.shutdown()
 cluster.shutdown()
