@@ -1,0 +1,113 @@
+CREATE(node:label{...props})
+
+MATCH(a:label1), (b:label2)
+CREATE(a)-[:relations]->(b)
+return a,b
+
+MERGE = MATCH OR CREATE
+
+SET -> přidat nebo změnit properties uzlu / vztahu
+
+MATCH (node:label{properties . . . . . . . . . . . . . . }) 
+SET node.property = value 
+RETURN node
+
+Remove property:
+MATCH (node:label {properties}) 
+SET node.property = NULL 
+RETURN node 
+
+SET label on node:
+MATCH (n {properties . . . . . . . }) 
+SET n :label 
+RETURN n 
+
+Set multiple labels on a node:
+MATCH (n {properties . . . . . . . }) 
+SET n :label1:label2 
+RETURN n 
+
+Smazat vše z databáze (nodes i relations)
+MATCH (n) DETACH DELETE n
+
+Delete node (a jeho relations):
+MATCH (node:label {properties . . . . . . . . . .  }) 
+DETACH DELETE node
+
+Odstranění labels a properties:
+MATCH (node:label{properties . . . . . . . }) 
+REMOVE node.property 
+RETURN node 
+
+MATCH (node:label {properties . . . . . . . . . . . }) 
+REMOVE node:label 
+RETURN node 
+
+Upravení všech uzlů (Všem uzlům na cestě p nastaví n.marked = TRUE):
+MATCH p = (start node)-[*]->(end node) 
+WHERE start.node = "node_name" AND end.node = "node_name" 
+FOREACH (n IN nodes(p)| SET n.marked = TRUE) 
+
+
+Nalezení nodes podle relations (Vrat všechny uzly n, které jsou ve vazbě Relationship s uzlem node:label):
+MATCH (node:label)<-[: Relationship]-(n) 
+RETURN n 
+
+
+Optional match (Najdi uzly a:Tournament s názvem... a potom optional najdi uzel x, který je spojen vazbou s uzlami a):
+Pokud nenajde, vrací NULL:
+MATCH (a:Tornament {name: "ICC Champions Trophy 2013"}) 
+OPTIONAL MATCH (a)-->(x) 
+RETURN x 
+
+Příklad:
+MATCH (a:label{prop1: 10}) 
+OPTIONAL MATCH (b{prop2: "str"}) 
+RETURN b
+
+MATCH s WHERE:
+MATCH (label)  
+WHERE label.country = "property" 
+RETURN label 
+
+Nebo pro vazby:
+MATCH (n) 
+WHERE (n)-[: TOP_SCORER_OF]->( {name: "India", result: "Winners"}) 
+RETURN n 
+
+Počet řádků ve výsledku (COUNT):
+MATCH (n { name: 'A' })-->(x) 
+RETURN n, count(*) 
+
+Kromě COUNT se dá použít: MAX, MIN, AVG, SUM
+
+počet řádků ve výsledku a groupni to podle typu relace (Název relace):
+Match(n{name: "India", result: "Winners"})-[r]-(x)  
+RETURN type (r), count(*) 
+
+Jdou používat aliasy:
+Match (Dhoni:player {name: "MahendraSingh Dhoni", YOB: 1981, POB: "Ranchi"}) 
+Return Dhoni.POB as Place Of Birth
+
+Order by:
+MATCH (n)  
+RETURN n.property1, n.property2 . . . . . . . .  
+ORDER BY n.property [DESC]
+
+Limit (může být výraz):
+MATCH (n) 
+RETURN n.name, n.runs 
+ORDER BY n.runs DESC 
+LIMIT toInt(3 * rand())+ 1 
+
+Skip (Několikátá iterace s limit, zase může být i výraz):
+MATCH (n)  
+RETURN n.name, n.runs 
+ORDER BY n.runs DESC 
+SKIP toInt (2*rand())+ 1 
+
+WITH (Využívání starších výsledků dotazů):
+MATCH (n) 
+WITH n 
+ORDER BY n.property 
+RETURN collect(n.property) 
