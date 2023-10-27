@@ -8,7 +8,7 @@ from neo4jDB import Neo4jDB
 
 script_dir = os.path.dirname(__file__)
 
-jsonFile = open(script_dir + "/../Intenzita_dopravy.geojson", "r")
+jsonFile = open(script_dir + "/data/Intenzita_dopravy.geojson", "r")
 jsonData = json.load(jsonFile)
 jsonFile.close()
 
