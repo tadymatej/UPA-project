@@ -13,5 +13,8 @@ class JsonGeometryPoint():
     def toJson(self):
         return "[{}, {}]".format(self.x, self.y)
 
+    def getString(self):
+        return "{}{}".format(str(self.x).replace(".", ""), str(self.y).replace(".", ""))
+
     def print(self):
         print("x, y = [{}, {}]".format(self.x, self.y))

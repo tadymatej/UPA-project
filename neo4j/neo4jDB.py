@@ -44,3 +44,47 @@ class Neo4jDB():
     def addRelation(self, name, nodeFromLabel, nodeToLabel):
         query = "MATCH(a:{}), (b:{}) MERGE(a)-[:{}]->(b)".format(nodeFromLabel, nodeToLabel, name)
         self._execute_query_w(query)
+
+    def prepareGraph(self, graphName, relationshipPropName):
+        query = """
+        CALL gds.graph.drop('""" + graphName + """', False)"""
+        self._execute_query_w(query)
+        
+        query = """CALL gds.graph.project(
+            '""" + graphName + """',
+            'Crossroad',
+            'spoj_rok2016',
+            {
+                relationshipProperties: '""" + relationshipPropName + """'
+            }
+        );"""
+        self._execute_query_w(query)
+
+    def shortestPathWeekend(self, sourcePointJson, targetPointJson):
+        self.shortestPath(sourcePointJson, targetPointJson, 'weekend')
+    
+    def shortestPathWeek(self, sourcePointJson, targetPointJson):
+        self.shortestPath(sourcePointJson, targetPointJson, 'week')
+
+    def shortestPath(self, sourcePointJson, targetPointJson, relationshipPropName):
+        self.prepareGraph('myGraph', relationshipPropName)
+        query = """
+        MATCH (source""" + sourcePointJson + """), (target""" + targetPointJson + """)
+        CALL gds.shortestPath.dijkstra.stream('myGraph', {
+            sourceNode: source,
+            targetNode: target,
+            relationshipWeightProperty: '""" + relationshipPropName + """"'
+        })
+        YIELD index, sourceNode, targetNode, totalCost, nodeIds, costs, path
+        RETURN
+            index,
+            gds.util.asNode(sourceNode).name AS sourceNodeName,
+            gds.util.asNode(targetNode).name AS targetNodeName,
+            totalCost,
+            [nodeId IN nodeIds | gds.util.asNode(nodeId).name] AS nodeNames,
+            costs,
+            nodes(path) as path
+        ORDER BY index
+
+        """
+        return self._execute_query_r(query)

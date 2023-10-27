@@ -18,19 +18,9 @@ Databáze běží přes docker
 Nyní by měla běžet lokálně neo4j databáze, přístupná přes: http://localhost:7474
 
 
-Script: Najdi nejvíc vytíženou trasu z bodu A do bodu B (o víkendu):
-bod A: 	[16.583119100000033,49.18363480000005]
-bod B: 	[16.56432250000006,49.19261460000007]
+4) Stáhněte si potřebnou knihovnu pro python neo4j
+    pip3 install neo4j
 
 
-CALL gds.graph.project('myGraph', 'Point', 'spoj_rok2016');
-CALL gds.graph.use('myGraph');
-MATCH (start{startPoint:[16.583119100000033,49.18363480000005]}), (end{startPoint:[16.56432250000006,49.19261460000007]})
-CALL gds.shortestPath.dijkstra.write.estimate('neo4j', {
-    sourceNode: start,
-    targetNode: end,
-    relationshipWeightProperty: 'week_2016',
-    writeRelationshipType: 'spoj_rok2016'
-})
-YIELD nodeCount, relationshipCount, bytesMin, bytesMax, requiredMemory
-RETURN nodeCount, relationshipCount, bytesMin, bytesMax, requiredMemory
+5) Spustte skript loadFromGeoJson.py
+    python3 loadFromGeoJson.py

@@ -31,9 +31,12 @@ def insertNodes(featureObjects):
         endPoint = points[len(points) - 1]
         startPointJson = startPoint.toJson()
         endPointJson = endPoint.toJson() 
-        db.addNode("id" + str(featureObject.getObjectID()), "{" + "coordinates: {}, startPoint: {}, endPoint: {}".format(geometry.toJson(), startPointJson, endPointJson) + "}")
+        startLabelNode = "ids{}".format(startPoint.getString())
+        endLabelNode = "ide{}".format(endPoint.getString())
+        db.addNode("Crossroad:{}".format(startLabelNode), "{" + "point: {}".format(startPointJson) + "}")
+        db.addNode("Crossroad:{}".format(endLabelNode), "{" + "point: {}".format(endPointJson) + "}")
 
-def insertRelations(featureObjects, yearStr):
+def addRelations(featureObjects, year):
     for featureObject in featureObjects:
         geometry = featureObject.getGeometry()
         points = geometry.getPoints()
@@ -41,35 +44,25 @@ def insertRelations(featureObjects, yearStr):
         endPoint = points[len(points) - 1]
         startPointJson = startPoint.toJson()
         endPointJson = endPoint.toJson() 
-
-        startNodesLabels = db.getLabelFromNodeProps("{endPoint: " + endPointJson + "}")
-        endNodesLabels = db.getLabelFromNodeProps("{startPoint: " + endPointJson + "}")
-
-        startLabelNode = "id" + str(featureObject.getObjectID())
-        for j in range(0, int(len(endNodesLabels) / 3)):
-            for endLabel in endNodesLabels[j * 3]:
-                endLabelNode = endLabel["labels(a)"][0]
-                relationJson = featureObject.getYearJson(yearStr)
-                db.softAddRelation("spoj_rok{}".format(yearStr), startLabelNode, endLabelNode, relationJson)
-
-       #for i in range(0, int(len(startNodesLabels) / 3)):
-       #     for startLabel in startNodesLabels[i * 3]:
-       #         startLabelNode = startLabel["labels(a)"][0]
-
-        #        for j in range(0, int(len(endNodesLabels) / 3)):
-        #            for endLabel in endNodesLabels[j * 3]:
-        #                endLabelNode = endLabel["labels(a)"][0]
-        #                relationJson = featureObject.getYearJson(yearStr)
-        #                db.softAddRelation("spoj_rok{}".format(yearStr), startLabelNode, endLabelNode, relationJson)
+        startLabelNode = "ids{}".format(startPoint.getString())
+        endLabelNode = "ide{}".format(endPoint.getString())
+        db.addNode("Crossroad:{}".format(startLabelNode), "{" + "point: {}".format(startPointJson) + "}")
+        db.addNode("Crossroad:{}".format(endLabelNode), "{" + "point: {}".format(endPointJson) + "}")
+        relationJson = featureObject.getYearJson(year)
+        db.softAddRelation("spoj_rok{}".format(year), startLabelNode, endLabelNode, relationJson)
+        db.softAddRelation("spoj_rok{}".format(year), endLabelNode, startLabelNode, relationJson)
 
 insertNodes(featureObjects)
-insertNodes(featureObjects)
 
-insertRelations(featureObjects, "2016")
-insertRelations(featureObjects, "2016")
-insertRelations(featureObjects, "2016")
-#insertRelations(featureObjects, "2018")
-#insertRelations(featureObjects, "2020")
-#insertRelations(featureObjects, "2022")
+addRelations(featureObjects, "2016")
+addRelations(featureObjects, "2016")
+addRelations(featureObjects, "2018")
+addRelations(featureObjects, "2020")
+addRelations(featureObjects, "2022")
+
+startPointJson = featureObjects[0].getGeometryPoints()[0].toJson()
+endPointJson = featureObjects[0].getGeometryPoints()[10].toJson()
+
+db.shortestPathWeek("{" + "point: {}".format(startPointJson) + "}", "{" + "point: {}".format(endPointJson) + "}")
 
 db.disconnect()

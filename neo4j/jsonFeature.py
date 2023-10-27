@@ -24,8 +24,8 @@ class JsonFeature():
 
     def getYearJson(self, strYear):
         jsonStr = "{"
-        jsonStr += "week_" + strYear + ":" + str(self.properties["prac_" + strYear[2:]]) + ","
-        jsonStr += "weekend_" + strYear + ":" + str(self.properties["vik_" + strYear[2:]])
+        jsonStr += "week:" + str(self.properties["prac_" + strYear[2:]]) + ","
+        jsonStr += "weekend:" + str(self.properties["vik_" + strYear[2:]])
         jsonStr += "}"
         return jsonStr
 
