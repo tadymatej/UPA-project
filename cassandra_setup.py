@@ -1,6 +1,8 @@
-from cassandra.cluster import Cluster
-from cassandra.auth import PlainTextAuthProvider
 import json
+
+from cassandra.auth import PlainTextAuthProvider
+from cassandra.cluster import Cluster
+
 # Your JSON data
 json_data = {
     "type": "FeatureCollection",
@@ -12,7 +14,7 @@ with open('Firmy_v_Brno.geojson', 'r') as file:
     json_data = json.load(file)
 
 ASTRA_DB_APPLICATION_TOKEN = ""
-ASTRA_TOKEN_PATH = 'UPA-token.json'
+ASTRA_TOKEN_PATH = 'UPA-token4.json'
 with open(ASTRA_TOKEN_PATH, "r") as f:
     creds = json.load(f)
     ASTRA_DB_APPLICATION_TOKEN = creds["token"]
@@ -32,13 +34,14 @@ def extract_properties(data):
 properties_data = extract_properties(json_data)
 
 
-
-cloud_config = {
-    'secure_connect_bundle': 'secure-connect-upa.zip'
-}
-auth_provider = PlainTextAuthProvider('token', password=ASTRA_DB_APPLICATION_TOKEN)
-cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = cluster.connect()
+cluster = Cluster(cloud={
+    "secure_connect_bundle": "/Users/janzimola/Documents/VUT/UPA-project/secure-connect-upa.zip",
+},
+    auth_provider=PlainTextAuthProvider(
+    "token",
+    ASTRA_DB_APPLICATION_TOKEN,
+),)
+session = cluster.connect("bamboo")
 
 # Connect to the Cassandra cluster
 # cluster = Cluster(['localhost'])  # Replace with your Cassandra cluster address
@@ -51,7 +54,7 @@ session.execute("USE bamboo")
 
 # Create a table to store the properties
 session.execute("""
-    CREATE TABLE IF NOT EXISTS properties (
+    CREATE TABLE IF NOT EXISTS firmy (
         objectid INT PRIMARY KEY,
         name TEXT,
         adresa TEXT,
@@ -91,14 +94,14 @@ for properties in properties_data:
     # ))
     # break
     insert_query = """
-        INSERT INTO properties (
+        INSERT INTO firmy (
             objectid, name, adresa, foundation_year, employees, turnover_in_czk,
             website, odvetvi, industry, address, city, latitude, longitude, globalid
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
     session.execute(session.prepare(insert_query), [
-        
+
         properties.get("objectid"),
         properties.get("name"),
         properties.get("adresa"),
