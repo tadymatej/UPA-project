@@ -1,12 +1,13 @@
-from influxdb_client_3 import InfluxDBClient3, Point
 from datetime import datetime, timedelta
+
+from influxdb_client import InfluxDBClient, Point, WritePrecision
 
 token = "VHvj7OSCceMdybeuh9V3rYbjnCrC4ZYa1wql-8HTz8Kb50LNueyDXTMcKaKez6vaGP3wu_GSqaiPhworLoa2qQ=="
 org = "UPA"
 host = "https://us-east-1-1.aws.cloud2.influxdata.com"
 
-client = InfluxDBClient3(host=host, token=token, org=org)
-database="UPA"
+client = InfluxDBClient(host=host, token=token, org=org)
+database = "UPA"
 
 query = """
 SELECT *
