@@ -3,6 +3,9 @@ from datetime import datetime
 from pymongo import MongoClient
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import os
+
+script_dir = os.path.dirname(__file__)
 
 uri = "mongodb+srv://upa:upa@cluster0.cq5pjvs.mongodb.net/?retryWrites=true&w=majority"
 # Create a new client and connect to the server
@@ -11,7 +14,7 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 database_name = "upa"
 
 # Load the JSON data
-with open("zastupitelstvo.json", "r") as json_file:
+with open(script_dir + "/data/zastupitelstvo.json", "r") as json_file:
     data_json = json.load(json_file)
 
 # Connect to MongoDB
