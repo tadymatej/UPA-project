@@ -111,3 +111,7 @@ MATCH (n)
 WITH n 
 ORDER BY n.property 
 RETURN collect(n.property) 
+
+
+MATCH p = (start{startPoint:[16.583119100000033,49.18363480000005]})-[r*]->(end{startPoint:[16.56432250000006,49.19261460000007]}) 
+RETURN p

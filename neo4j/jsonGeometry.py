@@ -15,9 +15,11 @@ class JsonGeometry():
         json = "["
         jsonItems = []
         for point in self.getPoints():
-            jsonItems.append(point.toJson())
+            jsonItems.append(str(point.getX()))
+            jsonItems.append(str(point.getY()))
         json += ", ".join(jsonItems)
         json += "]"
+        return json
 
     def print(self):
         for point in self.points:

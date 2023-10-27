@@ -7,6 +7,7 @@ from jsonGeometryPoint import JsonGeometryPoint
 class JsonFeature():
     def __init__(self, featureJson) -> None:
         properties = featureJson["properties"]
+        self.properties = properties
         self.ID = properties["id"]
         self.week_2016 = properties["prac_16"]
         self.weekend_2016 = properties["vik_16"]
@@ -18,10 +19,21 @@ class JsonFeature():
         self.weekend_2022 = properties["vik_22"]
         self.exportDate = properties["datum_exportu"]
         self.globalID = properties["GlobalID"]
+        self.objectID = properties["ObjectId"]
         self.geometry = JsonGeometry(featureJson["geometry"])
+
+    def getYearJson(self, strYear):
+        jsonStr = "{"
+        jsonStr += "week_" + strYear + ":" + str(self.properties["prac_" + strYear[2:]]) + ","
+        jsonStr += "weekend_" + strYear + ":" + str(self.properties["vik_" + strYear[2:]])
+        jsonStr += "}"
+        return jsonStr
 
     def getID(self):
         return self.ID
+
+    def getObjectID(self):
+        return self.objectID
 
     def getWeek2016(self):
         return self.week_2016
