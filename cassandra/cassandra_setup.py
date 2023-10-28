@@ -2,6 +2,7 @@ import json
 import os
 
 import pandas as pd
+
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.cluster import Cluster
 
@@ -19,13 +20,19 @@ data = pd.read_csv(
 cluster = Cluster(cloud={
     "secure_connect_bundle": script_dir + "/data/secure-connect-upa.zip",
 },
-auth_provider=PlainTextAuthProvider(
+    auth_provider=PlainTextAuthProvider(
     "token",
     ASTRA_DB_APPLICATION_TOKEN,
 ),)
 session = cluster.connect("bamboo")
 
+# Create a keyspace
+# session.execute(
+#     "CREATE KEYSPACE IF NOT EXISTS bamboo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
+
+
 session.execute("USE bamboo")
+
 
 # Create a table to store the properties
 session.execute("""
@@ -51,7 +58,6 @@ session.execute("""
 
 # Insert the new data into the Cassandra table
 for index, item in data.iterrows():
-    # print(item["X"])
     insert_query = """
         INSERT INTO parking (
             X, Y, ObjectId, name, capacity, free, Latitude, Longitude,

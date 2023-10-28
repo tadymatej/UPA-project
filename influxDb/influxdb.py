@@ -1,6 +1,6 @@
 import json
-from datetime import datetime, timedelta
 import os
+from datetime import datetime, timedelta
 
 from influxdb_client_3 import InfluxDBClient3, Point
 
@@ -52,9 +52,9 @@ for feature in features:
             influx_data.append(data_point)
         except ValueError:
             pass
+# Write the data to InfluxDB
 for point in influx_data:
     client.write(database=database, record=point)
-# Write the data to InfluxDB
 
 # Close the InfluxDB client
 client.close()
